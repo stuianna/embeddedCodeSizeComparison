@@ -11,6 +11,7 @@ class cUART : public cIOInterface{
 	~cUART() = default;
 	void init();
 	virtual bool put(uint8_t byte) override;
+	virtual bool isTxBusy() override;
 
 	private:
 		void gpioInit();

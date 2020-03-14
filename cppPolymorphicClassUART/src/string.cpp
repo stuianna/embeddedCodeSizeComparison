@@ -13,3 +13,6 @@ bool cString::sendBuffer(uint8_t* buffer, uint8_t length){
 	return false;
 }
 
+bool cString::txFree(){
+	return interface.isTxBusy();
+}
