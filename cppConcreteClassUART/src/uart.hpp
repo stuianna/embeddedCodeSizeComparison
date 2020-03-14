@@ -6,10 +6,11 @@
 class cUART{
 
 	public:
-	cUART() = default;
-	~cUART() = default;
-	void init();
-	bool put(uint8_t byte);
+		cUART() = default;
+		~cUART() = default;
+		void init();
+		bool put(uint8_t byte);
+		bool isTxBusy();
 
 	private:
 		void gpioInit();

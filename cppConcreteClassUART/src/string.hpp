@@ -9,6 +9,7 @@ class cString{
 		cString(cUART& targetInterface);
 		~cString() = default;
 		bool sendBuffer(uint8_t* buffer, uint8_t length);
+		bool txFree();
 
 	private:
 		cUART& interface;
