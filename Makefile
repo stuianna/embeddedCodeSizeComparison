@@ -15,6 +15,7 @@ SINGLEFILECPP=singleFileUARTCPP
 CSTYLEMODULES=cStyleModulesUART
 CPPSTATICCLASS=cppFullyStaticClassUART
 CPPCONCRETECLASS=cppConcreteClassUART
+CPPPOLYCLASS=cppPolymorphicClassUART
 
 # Directory Structure
 CURRDIR=.
@@ -86,7 +87,7 @@ BINHEX=$(PROJECT).hex
 .PHONY: targets all release debug clean flash erase reference
 
 targets: CURRDIR=
-targets: referenceCPP referenceC singleFunctionUartC singleFunctionUartCPP singleFileUartC singleFileUartCPP cStyleModules cppStaticClass cppConcreteClass
+targets: referenceCPP referenceC singleFunctionUartC singleFunctionUartCPP singleFileUartC singleFileUartCPP cStyleModules cppStaticClass cppConcreteClass cppPolyClass
 	@./scripts/evaluateSizes.sh  \
 	"Empty reference C program" $(REFERENCEDIRC)$(BINDIR)/$(PROJECT).elf \
 	"Empty reference CPP program" $(REFERENCEDIRCPP)$(BINDIR)/$(PROJECT).elf \
@@ -96,7 +97,8 @@ targets: referenceCPP referenceC singleFunctionUartC singleFunctionUartCPP singl
 	"UART Driver in single CPP File with split functions" $(SINGLEFILECPP)$(BINDIR)/$(PROJECT).elf \
 	"UART Driver as C style modules" $(CSTYLEMODULES)$(BINDIR)/$(PROJECT).elf \
 	"UART Driver as fully static CPP classes" $(CPPSTATICCLASS)$(BINDIR)/$(PROJECT).elf \
-	"UART Driver as only concrete CPP classes" $(CPPCONCRETECLASS)$(BINDIR)/$(PROJECT).elf 
+	"UART Driver as only concrete CPP classes" $(CPPCONCRETECLASS)$(BINDIR)/$(PROJECT).elf \
+	"UART Driver as polymorphic CPP class" $(CPPPOLYCLASS)$(BINDIR)/$(PROJECT).elf
 
 referenceCPP: CURRDIR=$(REFERENCEDIRCPP)
 referenceCPP: PROJECT=$(REFERENCEBINCPP)
@@ -154,6 +156,12 @@ cppConcreteClass:
 	@make all --no-print-directory -C $(CPPCONCRETECLASS)
 	@echo "--------------------"
 
+cppPolyClass: CURRDIR=$(CPPPOLYCLASS)
+cppPolyClass: 
+	@echo -e "\033[0;34mUSART polymorphic class\033[0m"
+	@make all --no-print-directory -C $(CPPPOLYCLASS)
+	@echo "--------------------"
+
 clean: 
 	@rm -rf $(REFERENCEDIRCPP)/$(OBJDIR) $(REFERENCEDIRCPP)/$(BINDIR)
 	@rm -rf $(REFERENCEDIRC)/$(OBJDIR) $(REFERENCEDIRC)/$(BINDIR)
@@ -164,6 +172,7 @@ clean:
 	@rm -rf $(CSTYLEMODULES)/$(OBJDIR) $(CSTYLEMODULES)/$(BINDIR)
 	@rm -rf $(CPPSTATICCLASS)/$(OBJDIR) $(CPPSTATICCLASS)/$(BINDIR)
 	@rm -rf $(CPPCONCRETECLASS)/$(OBJDIR) $(CPCONCRETECLASS)/$(BINDIR)
+	@rm -rf $(CPPPOLYCLASS)/$(OBJDIR) $(CPPPOLYCLASS)/$(BINDIR)
 
 all: release
 
@@ -196,11 +205,12 @@ $(OBJDIR)/%.o: %.s
 	@$(CC) $(CFLAGS) $< -o $@
 	@echo -e "\033[0;32m [OK] \033[0m       \033[0;33m Assembled:\033[0m" $<
 
+flash: CURRDIR=$(TARGET)
 flash: 
 	@echo -e "\n\033[0;32m[Flashing]\033[0m"
 	@openocd -f interface/$(OPENOCD_INTERFACE).cfg \
 		-f target/$(OPENOCD_TARGET).cfg \
-        -c "program $(TARGET)/$(BINDIR)/$(PROJECT).elf verify" \
+        -c "program $(BINDIR)/$(PROJECT).elf verify" \
 		-c "reset" \
         -c "exit"
 erase:
