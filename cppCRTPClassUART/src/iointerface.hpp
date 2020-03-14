@@ -11,6 +11,9 @@ class cIOInterface{
 		bool put(uint8_t byte){
 			return this->underlying().put(byte);
 		}
+		bool isTxBusy(){
+			return this->underlying().isTxBusy();
+		}
 
 	private:
 		friend T;

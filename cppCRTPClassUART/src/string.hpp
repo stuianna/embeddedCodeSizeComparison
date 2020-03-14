@@ -17,6 +17,9 @@ class cString{
 			}
 			return false;
 		}
+		bool txFree(){
+			return interface.isTxBusy();
+		}
 
 	private:
 		cIOInterface<T>& interface;

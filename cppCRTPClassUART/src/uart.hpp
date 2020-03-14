@@ -7,10 +7,11 @@
 class cUART : public cIOInterface<cUART>{
 
 	public:
-	explicit cUART() = default;
-	~cUART() = default;
-	void init();
-	bool put(uint8_t byte);
+		explicit cUART() = default;
+		~cUART() = default;
+		void init();
+		bool put(uint8_t byte);
+		bool isTxBusy();
 
 	private:
 		void gpioInit();
