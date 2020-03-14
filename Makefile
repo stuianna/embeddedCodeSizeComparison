@@ -6,11 +6,14 @@ DEFS =
 
 # Comparison targets
 REFERENCEDIRCPP=minimumReferenceCPP
-REFERENCEBINCPP=referenceBinCPP
-
 REFERENCEDIRC=minimumReferenceC
-REFERENCEBINC=referenceBinC
-
+REFERENCEDIRC=minimumReferenceC
+SINGLEFUNCTIONC=singleFunctionUARTC
+SINGLEFUNCTIONCPP=singleFunctionUARTCPP
+SINGLEFILEC=singleFileUARTC
+SINGLEFILECPP=singleFileUARTCPP
+CSTYLEMODULES=cStyleModulesUART
+CPPSTATICCLASS=cppFullyStaticClassUART
 
 # Directory Structure
 CURRDIR=.
@@ -82,10 +85,16 @@ BINHEX=$(PROJECT).hex
 .PHONY: targets all release debug clean flash erase reference
 
 targets: CURRDIR=
-targets: referenceCPP referenceC
+targets: referenceCPP referenceC singleFunctionUartC singleFunctionUartCPP singleFileUartC singleFileUartCPP cStyleModules cppStaticClass
 	@./scripts/evaluateSizes.sh  \
 	"Empty reference C program" $(REFERENCEDIRC)$(BINDIR)/$(PROJECT).elf \
-	"Empty reference CPP program" $(REFERENCEDIRCPP)$(BINDIR)/$(PROJECT).elf
+	"Empty reference CPP program" $(REFERENCEDIRCPP)$(BINDIR)/$(PROJECT).elf \
+	"UART Driver in single C function" $(SINGLEFUNCTIONC)$(BINDIR)/$(PROJECT).elf \
+	"UART Driver in single CPP function" $(SINGLEFUNCTIONCPP)$(BINDIR)/$(PROJECT).elf \
+	"UART Driver in single C File with split functions" $(SINGLEFILEC)$(BINDIR)/$(PROJECT).elf \
+	"UART Driver in single CPP File with split functions" $(SINGLEFILECPP)$(BINDIR)/$(PROJECT).elf \
+	"UART Driver as C style modules" $(CSTYLEMODULES)$(BINDIR)/$(PROJECT).elf \
+	"UART Driver as fully static CPP classes" $(CPPSTATICCLASS)$(BINDIR)/$(PROJECT).elf 
 
 referenceCPP: CURRDIR=$(REFERENCEDIRCPP)
 referenceCPP: PROJECT=$(REFERENCEBINCPP)
@@ -101,9 +110,51 @@ referenceC:
 	@make all --no-print-directory -C $(REFERENCEDIRC)
 	@echo "--------------------"
 
+singleFunctionUartC: CURRDIR=$(SINGLEFUNCTIONC)
+singleFunctionUartC: 
+	@echo -e "\033[0;34mSingle funtion UART driver (C) \033[0m"
+	@make all --no-print-directory -C $(SINGLEFUNCTIONC)
+	@echo "--------------------"
+
+singleFunctionUartCPP: CURRDIR=$(SINGLEFUNCTIONCPP)
+singleFunctionUartCPP: 
+	@echo -e "\033[0;34mSingle function UART driver (CPP) \033[0m"
+	@make all --no-print-directory -C $(SINGLEFUNCTIONCPP)
+	@echo "--------------------"
+
+singleFileUartC: CURRDIR=$(SINGLEFILEC)
+singleFileUartC: 
+	@echo -e "\033[0;34mSingle file UART driver (C) \033[0m"
+	@make all --no-print-directory -C $(SINGLEFILEC)
+	@echo "--------------------"
+
+singleFileUartCPP: CURRDIR=$(SINGLEFILECPP)
+singleFileUartCPP: 
+	@echo -e "\033[0;34mSingle file UART driver (CPP) \033[0m"
+	@make all --no-print-directory -C $(SINGLEFILECPP)
+	@echo "--------------------"
+
+cStyleModules: CURRDIR=$(CSTYLEMODULES)
+cStyleModules: 
+	@echo -e "\033[0;34mC-Style module UART driver \033[0m"
+	@make all --no-print-directory -C $(CSTYLEMODULES)
+	@echo "--------------------"
+
+cppStaticClass: CURRDIR=$(CPPSTATICCLASS)
+cppStaticClass: 
+	@echo -e "\033[0;34mFully static CPP classes\033[0m"
+	@make all --no-print-directory -C $(CPPSTATICCLASS)
+	@echo "--------------------"
+
 clean: 
 	@rm -rf $(REFERENCEDIRCPP)/$(OBJDIR) $(REFERENCEDIRCPP)/$(BINDIR)
 	@rm -rf $(REFERENCEDIRC)/$(OBJDIR) $(REFERENCEDIRC)/$(BINDIR)
+	@rm -rf $(SINGLEFUNCTIONC)/$(OBJDIR) $(SINGLEFUNCTIONC)/$(BINDIR)
+	@rm -rf $(SINGLEFUNCTIONCPP)/$(OBJDIR) $(SINGLEFUNCTIONCPP)/$(BINDIR)
+	@rm -rf $(SINGLEFILEC)/$(OBJDIR) $(SINGLEFILEC)/$(BINDIR)
+	@rm -rf $(SINGLEFILECPP)/$(OBJDIR) $(SINGLEFILECPP)/$(BINDIR)
+	@rm -rf $(CSTYLEMODULES)/$(OBJDIR) $(CSTYLEMODULES)/$(BINDIR)
+	@rm -rf $(CPPSTATICCLASS)/$(OBJDIR) $(CPPSTATICCLASS)/$(BINDIR)
 
 all: release
 
@@ -136,11 +187,11 @@ $(OBJDIR)/%.o: %.s
 	@$(CC) $(CFLAGS) $< -o $@
 	@echo -e "\033[0;32m [OK] \033[0m       \033[0;33m Assembled:\033[0m" $<
 
-flash: release
+flash: 
 	@echo -e "\n\033[0;32m[Flashing]\033[0m"
 	@openocd -f interface/$(OPENOCD_INTERFACE).cfg \
 		-f target/$(OPENOCD_TARGET).cfg \
-        -c "program $(BINDIR)/$(PROJECT).elf verify" \
+        -c "program $(TARGET)/$(BINDIR)/$(PROJECT).elf verify" \
 		-c "reset" \
         -c "exit"
 erase:
