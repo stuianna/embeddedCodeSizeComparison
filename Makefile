@@ -14,6 +14,7 @@ SINGLEFILEC=singleFileUARTC
 SINGLEFILECPP=singleFileUARTCPP
 CSTYLEMODULES=cStyleModulesUART
 CPPSTATICCLASS=cppFullyStaticClassUART
+CPPCONCRETECLASS=cppConcreteClassUART
 
 # Directory Structure
 CURRDIR=.
@@ -85,7 +86,7 @@ BINHEX=$(PROJECT).hex
 .PHONY: targets all release debug clean flash erase reference
 
 targets: CURRDIR=
-targets: referenceCPP referenceC singleFunctionUartC singleFunctionUartCPP singleFileUartC singleFileUartCPP cStyleModules cppStaticClass
+targets: referenceCPP referenceC singleFunctionUartC singleFunctionUartCPP singleFileUartC singleFileUartCPP cStyleModules cppStaticClass cppConcreteClass
 	@./scripts/evaluateSizes.sh  \
 	"Empty reference C program" $(REFERENCEDIRC)$(BINDIR)/$(PROJECT).elf \
 	"Empty reference CPP program" $(REFERENCEDIRCPP)$(BINDIR)/$(PROJECT).elf \
@@ -94,7 +95,8 @@ targets: referenceCPP referenceC singleFunctionUartC singleFunctionUartCPP singl
 	"UART Driver in single C File with split functions" $(SINGLEFILEC)$(BINDIR)/$(PROJECT).elf \
 	"UART Driver in single CPP File with split functions" $(SINGLEFILECPP)$(BINDIR)/$(PROJECT).elf \
 	"UART Driver as C style modules" $(CSTYLEMODULES)$(BINDIR)/$(PROJECT).elf \
-	"UART Driver as fully static CPP classes" $(CPPSTATICCLASS)$(BINDIR)/$(PROJECT).elf 
+	"UART Driver as fully static CPP classes" $(CPPSTATICCLASS)$(BINDIR)/$(PROJECT).elf \
+	"UART Driver as only concrete CPP classes" $(CPPCONCRETECLASS)$(BINDIR)/$(PROJECT).elf 
 
 referenceCPP: CURRDIR=$(REFERENCEDIRCPP)
 referenceCPP: PROJECT=$(REFERENCEBINCPP)
@@ -146,6 +148,12 @@ cppStaticClass:
 	@make all --no-print-directory -C $(CPPSTATICCLASS)
 	@echo "--------------------"
 
+cppConcreteClass: CURRDIR=$(CPPCONCRETECLASS)
+cppConcreteClass: 
+	@echo -e "\033[0;34mFully concrete CPP classes\033[0m"
+	@make all --no-print-directory -C $(CPPCONCRETECLASS)
+	@echo "--------------------"
+
 clean: 
 	@rm -rf $(REFERENCEDIRCPP)/$(OBJDIR) $(REFERENCEDIRCPP)/$(BINDIR)
 	@rm -rf $(REFERENCEDIRC)/$(OBJDIR) $(REFERENCEDIRC)/$(BINDIR)
@@ -155,6 +163,7 @@ clean:
 	@rm -rf $(SINGLEFILECPP)/$(OBJDIR) $(SINGLEFILECPP)/$(BINDIR)
 	@rm -rf $(CSTYLEMODULES)/$(OBJDIR) $(CSTYLEMODULES)/$(BINDIR)
 	@rm -rf $(CPPSTATICCLASS)/$(OBJDIR) $(CPPSTATICCLASS)/$(BINDIR)
+	@rm -rf $(CPPCONCRETECLASS)/$(OBJDIR) $(CPCONCRETECLASS)/$(BINDIR)
 
 all: release
 
