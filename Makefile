@@ -16,6 +16,7 @@ CSTYLEMODULES=cStyleModulesUART
 CPPSTATICCLASS=cppFullyStaticClassUART
 CPPCONCRETECLASS=cppConcreteClassUART
 CPPPOLYCLASS=cppPolymorphicClassUART
+CPPCRPTCLASS=cppCRTPClassUART
 
 # Directory Structure
 CURRDIR=.
@@ -87,7 +88,7 @@ BINHEX=$(PROJECT).hex
 .PHONY: targets all release debug clean flash erase reference
 
 targets: CURRDIR=
-targets: referenceCPP referenceC singleFunctionUartC singleFunctionUartCPP singleFileUartC singleFileUartCPP cStyleModules cppStaticClass cppConcreteClass cppPolyClass
+targets: referenceCPP referenceC singleFunctionUartC singleFunctionUartCPP singleFileUartC singleFileUartCPP cStyleModules cppStaticClass cppConcreteClass cppPolyClass cppCRTPClass
 	@./scripts/evaluateSizes.sh  \
 	"Empty reference C program" $(REFERENCEDIRC)$(BINDIR)/$(PROJECT).elf \
 	"Empty reference CPP program" $(REFERENCEDIRCPP)$(BINDIR)/$(PROJECT).elf \
@@ -98,69 +99,65 @@ targets: referenceCPP referenceC singleFunctionUartC singleFunctionUartCPP singl
 	"UART Driver as C style modules" $(CSTYLEMODULES)$(BINDIR)/$(PROJECT).elf \
 	"UART Driver as fully static CPP classes" $(CPPSTATICCLASS)$(BINDIR)/$(PROJECT).elf \
 	"UART Driver as only concrete CPP classes" $(CPPCONCRETECLASS)$(BINDIR)/$(PROJECT).elf \
-	"UART Driver as polymorphic CPP class" $(CPPPOLYCLASS)$(BINDIR)/$(PROJECT).elf
+	"UART Driver as polymorphic CPP class" $(CPPPOLYCLASS)$(BINDIR)/$(PROJECT).elf \
+	"UART Driver as CRTP CPP class" $(CPPCRPTCLASS)$(BINDIR)/$(PROJECT).elf
 
 referenceCPP: CURRDIR=$(REFERENCEDIRCPP)
 referenceCPP: PROJECT=$(REFERENCEBINCPP)
 referenceCPP: 
-	@echo -e "\033[0;34mMinimum reference program (CPP) \033[0m"
+	@echo -e "\033[0;34mBuilding: Minimum reference program (CPP) \033[0m"
 	@make all --no-print-directory -C $(REFERENCEDIRCPP)
-	@echo "--------------------"
 
 referenceC: CURRDIR=$(REFERENCEDIRC)
 referenceC: PROJECT=$(REFERENCEBINC)
 referenceC: 
-	@echo -e "\033[0;34mMinimum reference program (C) \033[0m"
+	@echo -e "\033[0;34mBuilding: Minimum reference program (C) \033[0m"
 	@make all --no-print-directory -C $(REFERENCEDIRC)
-	@echo "--------------------"
 
 singleFunctionUartC: CURRDIR=$(SINGLEFUNCTIONC)
 singleFunctionUartC: 
-	@echo -e "\033[0;34mSingle funtion UART driver (C) \033[0m"
+	@echo -e "\033[0;34mBuilding: Single funtion UART driver (C) \033[0m"
 	@make all --no-print-directory -C $(SINGLEFUNCTIONC)
-	@echo "--------------------"
 
 singleFunctionUartCPP: CURRDIR=$(SINGLEFUNCTIONCPP)
 singleFunctionUartCPP: 
-	@echo -e "\033[0;34mSingle function UART driver (CPP) \033[0m"
+	@echo -e "\033[0;34mBuilding: Single function UART driver (CPP) \033[0m"
 	@make all --no-print-directory -C $(SINGLEFUNCTIONCPP)
-	@echo "--------------------"
 
 singleFileUartC: CURRDIR=$(SINGLEFILEC)
 singleFileUartC: 
-	@echo -e "\033[0;34mSingle file UART driver (C) \033[0m"
+	@echo -e "\033[0;34mBuilding: Single file UART driver (C) \033[0m"
 	@make all --no-print-directory -C $(SINGLEFILEC)
-	@echo "--------------------"
 
 singleFileUartCPP: CURRDIR=$(SINGLEFILECPP)
 singleFileUartCPP: 
-	@echo -e "\033[0;34mSingle file UART driver (CPP) \033[0m"
+	@echo -e "\033[0;34mBuilding: Single file UART driver (CPP) \033[0m"
 	@make all --no-print-directory -C $(SINGLEFILECPP)
-	@echo "--------------------"
 
 cStyleModules: CURRDIR=$(CSTYLEMODULES)
 cStyleModules: 
-	@echo -e "\033[0;34mC-Style module UART driver \033[0m"
+	@echo -e "\033[0;34mBuilding: C-Style module UART driver \033[0m"
 	@make all --no-print-directory -C $(CSTYLEMODULES)
-	@echo "--------------------"
 
 cppStaticClass: CURRDIR=$(CPPSTATICCLASS)
 cppStaticClass: 
-	@echo -e "\033[0;34mFully static CPP classes\033[0m"
+	@echo -e "\033[0;34mBuilding: Fully static CPP classes\033[0m"
 	@make all --no-print-directory -C $(CPPSTATICCLASS)
-	@echo "--------------------"
 
 cppConcreteClass: CURRDIR=$(CPPCONCRETECLASS)
 cppConcreteClass: 
-	@echo -e "\033[0;34mFully concrete CPP classes\033[0m"
+	@echo -e "\033[0;34mBuilding: Fully concrete CPP classes\033[0m"
 	@make all --no-print-directory -C $(CPPCONCRETECLASS)
-	@echo "--------------------"
 
 cppPolyClass: CURRDIR=$(CPPPOLYCLASS)
 cppPolyClass: 
-	@echo -e "\033[0;34mUSART polymorphic class\033[0m"
+	@echo -e "\033[0;34mBuilding: USART polymorphic class\033[0m"
 	@make all --no-print-directory -C $(CPPPOLYCLASS)
-	@echo "--------------------"
+
+cppCRTPClass: CURRDIR=$(CPPCRPTCLASS)
+cppCRTPClass: 
+	@echo -e "\033[0;34mBuilding: USART CRPT class\033[0m"
+	@make all --no-print-directory -C $(CPPCRPTCLASS)
 
 clean: 
 	@rm -rf $(REFERENCEDIRCPP)/$(OBJDIR) $(REFERENCEDIRCPP)/$(BINDIR)
@@ -171,8 +168,9 @@ clean:
 	@rm -rf $(SINGLEFILECPP)/$(OBJDIR) $(SINGLEFILECPP)/$(BINDIR)
 	@rm -rf $(CSTYLEMODULES)/$(OBJDIR) $(CSTYLEMODULES)/$(BINDIR)
 	@rm -rf $(CPPSTATICCLASS)/$(OBJDIR) $(CPPSTATICCLASS)/$(BINDIR)
-	@rm -rf $(CPPCONCRETECLASS)/$(OBJDIR) $(CPCONCRETECLASS)/$(BINDIR)
+	@rm -rf $(CPPCONCRETECLASS)/$(OBJDIR) $(CPPCONCRETECLASS)/$(BINDIR)
 	@rm -rf $(CPPPOLYCLASS)/$(OBJDIR) $(CPPPOLYCLASS)/$(BINDIR)
+	@rm -rf $(CPPCRPTCLASS)/$(OBJDIR) $(CPPCRPTCLASS)/$(BINDIR)
 
 all: release
 
@@ -180,30 +178,22 @@ release: $(BINDIR)/$(BINHEX)
 
 $(BINDIR)/$(BINHEX): $(BINDIR)/$(BINELF)
 	@$(CP) -O ihex $< $@
-	@echo -e "\033[0;32m [OK] \033[0m       \033[0;33m Converted:\033[0m" $<
-	@echo -e "\n\033[0;32m[Binary Size]\033[0m"
-	@$(SIZE) $(BINDIR)/$(BINELF)
 
 $(BINDIR)/$(BINELF): $(OBJECTS)
 	@mkdir -p $(BINDIR)
 	@$(CXX) $(OBJECTS) $(LDFLAGS) -o $@
-	@echo -e "\033[0;32m [OK] \033[0m       \033[0;33m Linked:\033[0m" $<
 
 $(OBJDIR)/%.o: %.cpp
 	@mkdir -p $(dir $@)
 	@$(CXX) $(CXXFLAGS) $< -o $@
-	@echo -e "\033[0;32m [OK] \033[0m       \033[0;33m Compiled:\033[0m" $<
 
 $(OBJDIR)/%.o: %.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) $< -o $@
-	@echo -e "\033[0;32m [OK] \033[0m       \033[0;33m Compiled:\033[0m" $<
 
 $(OBJDIR)/%.o: %.s
-	@echo -e "\033[0;32m[Compiling]\033[0m"
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) $< -o $@
-	@echo -e "\033[0;32m [OK] \033[0m       \033[0;33m Assembled:\033[0m" $<
 
 flash: CURRDIR=$(TARGET)
 flash: 
