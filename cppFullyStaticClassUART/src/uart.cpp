@@ -47,3 +47,6 @@ bool cUART::put(uint8_t byte){
 	return false;
 }
 
+bool cUART::isTxBusy(){
+	return !(USART->ISR & USART_ISR_TXE);
+}
