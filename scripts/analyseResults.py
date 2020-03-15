@@ -5,11 +5,8 @@ import json
 inDataFile = 'programSizes.json'
 outDataFile = 'programResults.json'
 programTypes = [
-        'Single file C Program',
-        'Single file CPP Program',
-        'C Style Modules with Callbacks',
-        'Full Static CPP Class with Callbacks',
-        'Concrete CPP Class',
+        'Fully Static CPP Classes',
+        'Concrete CPP Classes',
         'Polymorphic CPP Class with Virtual Functions',
         'CRTP Static Polymorphism']
 
@@ -26,8 +23,8 @@ except:
 
 rows = inData['Binary Size Comparison']
 
-for i in range(4,len(rows)):
-    outData[programTypes[i-4]].append(int(rows[i]['total']))
+for i in range(1,len(rows)):
+    outData[programTypes[i-1]].append(int(rows[i]['total']))
 
 
 with open(outDataFile,'w') as writeFile:

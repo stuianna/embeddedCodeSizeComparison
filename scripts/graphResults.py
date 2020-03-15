@@ -20,6 +20,6 @@ plt.xlabel(xAxisLabel);
 plt.ylabel(yAxisLabel);
 ax.legend(data.keys(),loc='upper center',bbox_to_anchor=(0.5,-0.15),ncol=2,shadow=True,prop={'size':9});
 box = ax.get_position()
-ax.set_position([box.x0, box.y0 + box.height * 0.3,
-                 box.width, box.height * 0.8])
+ax.set_position([box.x0, box.y0 + box.height * 0.2,
+                 box.width, box.height * 0.9])
 plt.savefig('resultsGraph.png')

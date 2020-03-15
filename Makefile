@@ -6,13 +6,6 @@ DEFS =
 
 # Comparison targets
 REFERENCEDIRCPP=minimumReferenceCPP
-REFERENCEDIRC=minimumReferenceC
-REFERENCEDIRC=minimumReferenceC
-SINGLEFUNCTIONC=singleFunctionUARTC
-SINGLEFUNCTIONCPP=singleFunctionUARTCPP
-SINGLEFILEC=singleFileUARTC
-SINGLEFILECPP=singleFileUARTCPP
-CSTYLEMODULES=cStyleModulesUART
 CPPSTATICCLASS=cppFullyStaticClassUART
 CPPCONCRETECLASS=cppConcreteClassUART
 CPPPOLYCLASS=cppPolymorphicClassUART
@@ -105,37 +98,6 @@ referenceCPP:
 	@echo -e "\033[0;34mBuilding: Minimum reference program (CPP) \033[0m"
 	@make all --no-print-directory -C $(REFERENCEDIRCPP)
 
-referenceC: CURRDIR=$(REFERENCEDIRC)
-referenceC: PROJECT=$(REFERENCEBINC)
-referenceC: 
-	@echo -e "\033[0;34mBuilding: Minimum reference program (C) \033[0m"
-	@make all --no-print-directory -C $(REFERENCEDIRC)
-
-singleFunctionUartC: CURRDIR=$(SINGLEFUNCTIONC)
-singleFunctionUartC: 
-	@echo -e "\033[0;34mBuilding: Single funtion UART driver (C) \033[0m"
-	@make all --no-print-directory -C $(SINGLEFUNCTIONC)
-
-singleFunctionUartCPP: CURRDIR=$(SINGLEFUNCTIONCPP)
-singleFunctionUartCPP: 
-	@echo -e "\033[0;34mBuilding: Single function UART driver (CPP) \033[0m"
-	@make all --no-print-directory -C $(SINGLEFUNCTIONCPP)
-
-singleFileUartC: CURRDIR=$(SINGLEFILEC)
-singleFileUartC: 
-	@echo -e "\033[0;34mBuilding: Single file UART driver (C) \033[0m"
-	@make all --no-print-directory -C $(SINGLEFILEC)
-
-singleFileUartCPP: CURRDIR=$(SINGLEFILECPP)
-singleFileUartCPP: 
-	@echo -e "\033[0;34mBuilding: Single file UART driver (CPP) \033[0m"
-	@make all --no-print-directory -C $(SINGLEFILECPP)
-
-cStyleModules: CURRDIR=$(CSTYLEMODULES)
-cStyleModules: 
-	@echo -e "\033[0;34mBuilding: C-Style module UART driver \033[0m"
-	@make all --no-print-directory -C $(CSTYLEMODULES)
-
 cppStaticClass: CURRDIR=$(CPPSTATICCLASS)
 cppStaticClass: 
 	@echo -e "\033[0;34mBuilding: Fully static CPP classes\033[0m"
@@ -158,12 +120,6 @@ cppCRTPClass:
 
 clean: 
 	@rm -rf $(REFERENCEDIRCPP)/$(OBJDIR) $(REFERENCEDIRCPP)/$(BINDIR)
-	@rm -rf $(REFERENCEDIRC)/$(OBJDIR) $(REFERENCEDIRC)/$(BINDIR)
-	@rm -rf $(SINGLEFUNCTIONC)/$(OBJDIR) $(SINGLEFUNCTIONC)/$(BINDIR)
-	@rm -rf $(SINGLEFUNCTIONCPP)/$(OBJDIR) $(SINGLEFUNCTIONCPP)/$(BINDIR)
-	@rm -rf $(SINGLEFILEC)/$(OBJDIR) $(SINGLEFILEC)/$(BINDIR)
-	@rm -rf $(SINGLEFILECPP)/$(OBJDIR) $(SINGLEFILECPP)/$(BINDIR)
-	@rm -rf $(CSTYLEMODULES)/$(OBJDIR) $(CSTYLEMODULES)/$(BINDIR)
 	@rm -rf $(CPPSTATICCLASS)/$(OBJDIR) $(CPPSTATICCLASS)/$(BINDIR)
 	@rm -rf $(CPPCONCRETECLASS)/$(OBJDIR) $(CPPCONCRETECLASS)/$(BINDIR)
 	@rm -rf $(CPPPOLYCLASS)/$(OBJDIR) $(CPPPOLYCLASS)/$(BINDIR)

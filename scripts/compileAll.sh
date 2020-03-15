@@ -3,17 +3,17 @@
 rm programSizes.json
 rm programResults.json
 
-git checkout master
+git checkout oneFunction
+make clean
+make
+$(pwd)/scripts/analyseResults.py
+
+git checkout twoFunctions
 make clean
 make
 $(pwd)/scripts/analyseResults.py
 
 git checkout threeFunctions
-make clean
-make
-$(pwd)/scripts/analyseResults.py
-
-git checkout fourFunctionIncThreePoly
 make clean
 make
 $(pwd)/scripts/analyseResults.py
