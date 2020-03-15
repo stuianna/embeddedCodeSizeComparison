@@ -167,3 +167,10 @@ erase:
 
 print-%  : ; @echo $* = $($*)
 
+rebase:
+	@git rebase master oneFunction
+	@git rebase master twoFunctions
+	@git rebase master threeFunctions
+	@git rebase master fourFunctions
+	@git rebase master fiveFunctions
+	@git rebase master sixFunctions
