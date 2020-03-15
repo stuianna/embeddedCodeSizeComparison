@@ -16,6 +16,8 @@ class cIOInterface{
 		}
 		uint32_t getByteCount(){
 			return this->underlying().getByteCount();
+		}uint8_t getLastByteSent(){
+			return this->underlying().getLastByteSent();
 		}
 
 	private:

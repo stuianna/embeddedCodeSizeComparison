@@ -10,10 +10,12 @@ class cUART{
 	static bool put(uint8_t byte);
 	static bool isTxBusy();
 	static uint32_t getByteCount();
+	static uint8_t getLastByteSent();
 
 	private:
 		static void gpioInit();
 		static uint32_t byteCount;
+		static uint8_t lastByteSent;
 };
 
 #endif

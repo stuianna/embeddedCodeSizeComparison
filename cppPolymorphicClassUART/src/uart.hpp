@@ -13,10 +13,12 @@ class cUART : public cIOInterface{
 	virtual bool put(uint8_t byte) override;
 	virtual bool isTxBusy() override;
 	virtual uint32_t getByteCount() override;
+	virtual uint8_t getLastByteSent() override;
 
 	private:
 		void gpioInit();
 		uint32_t byteCount;
+		uint8_t lastByteSent;
 };
 
 #endif

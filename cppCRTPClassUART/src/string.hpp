@@ -26,6 +26,10 @@ class cString{
 			return interface.getByteCount();
 		}
 
+		uint8_t lastByteSent(){
+			return interface.getLastByteSent();
+		}
+
 	private:
 		cIOInterface<T>& interface;
 };

@@ -8,6 +8,7 @@ class cString{
 		static bool sendBuffer(uint8_t* buffer, uint8_t length);
 		static bool txFree();
 		static uint32_t byteCount();
+		static uint8_t lastByteSent();
 };
 
 

@@ -15,6 +15,9 @@ int main(void){
 		if(stream.txFree() && (stream.byteCount() < 1000)){
 			stream.sendBuffer((uint8_t*)TOSEND,sizeof(TOSEND)/sizeof(uint8_t)-1);
 		}
+		if(stream.lastByteSent() == 0){
+			stream.sendBuffer((uint8_t*)TOSEND,sizeof(TOSEND)/sizeof(uint8_t)-1);
+		}
 	}
 }
 

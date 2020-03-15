@@ -14,6 +14,7 @@
 
 static void GPIO_setUARTFunction(GPIO_TypeDef* port, uint8_t pin);
 uint32_t cUART::byteCount = 0;
+uint8_t cUART::lastByteSent = 0;
 
 void cUART::init(){
 	gpioInit();
@@ -46,6 +47,7 @@ bool cUART::put(uint8_t byte){
 	}
 	USART->TDR = byte;
 	byteCount++;
+	lastByteSent = byte;
 	return false;
 }
 
@@ -55,4 +57,8 @@ bool cUART::isTxBusy(){
 
 uint32_t cUART::getByteCount(){
 	return byteCount;
+}
+
+uint8_t cUART::getLastByteSent(){
+	return lastByteSent;
 }

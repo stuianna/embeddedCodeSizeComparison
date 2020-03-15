@@ -10,6 +10,9 @@ int main(void){
 		if(cString::txFree() && (cString::byteCount() < 1000)){
 			cString::sendBuffer((uint8_t*)TOSEND,sizeof(TOSEND)/sizeof(uint8_t)-1);
 		}
+		if(cString::lastByteSent() == '0'){
+			cString::sendBuffer((uint8_t*)TOSEND,sizeof(TOSEND)/sizeof(uint8_t)-1);
+		}
 	}
 }
 

@@ -21,3 +21,7 @@ uint32_t cString::byteCount(){
 	return interface.getByteCount();
 }
 
+uint8_t cString::lastByteSent(){
+	return interface.getLastByteSent();
+}
+

@@ -17,3 +17,7 @@ bool cString::txFree(){
 uint32_t cString::byteCount(){
 	return cUART::getByteCount();
 }
+
+uint8_t cString::lastByteSent(){
+	return cUART::getLastByteSent();
+}
