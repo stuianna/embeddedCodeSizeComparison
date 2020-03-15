@@ -17,3 +17,7 @@ bool cString::txFree(){
 	return interface.isTxBusy();
 }
 
+uint32_t cString::byteCount(){
+	return interface.getByteCount();
+}
+

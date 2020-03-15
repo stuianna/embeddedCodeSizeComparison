@@ -9,7 +9,7 @@ int main(void){
 	uart.init();
 	cString stream(uart);
 	while(1){
-		if(stream.txFree()){
+		if(stream.txFree() && (stream.byteCount() < 1000)){
 			stream.sendBuffer((uint8_t*)TOSEND,sizeof(TOSEND)/sizeof(uint8_t)-1);
 		}
 	}

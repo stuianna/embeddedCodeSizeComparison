@@ -10,6 +10,7 @@ class cString{
 		~cString() = default;
 		bool sendBuffer(uint8_t* buffer, uint8_t length);
 		bool txFree();
+		uint32_t byteCount();
 
 	private:
 		cUART& interface;
