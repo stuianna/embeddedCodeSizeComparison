@@ -15,6 +15,7 @@ class cUART : public cIOInterface<cUART>{
 		uint32_t getByteCount();
 		uint8_t getLastByteSent();
 		void resetByteCount();
+		bool get(uint8_t& byte);
 
 	private:
 		void gpioInit();

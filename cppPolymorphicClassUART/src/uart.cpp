@@ -49,6 +49,18 @@ bool cUART::put(uint8_t byte){
 	return false;
 }
 
+bool cUART::get(uint8_t& byte){
+  uint16_t timeout = USART_TIMEOUT;
+  while(!(USART->ISR & USART_ISR_RXNE) && timeout){
+    timeout--;
+  }
+  if(!timeout){
+    return true;
+  }
+  byte = (uint8_t)USART->RDR;
+  return false;
+}
+
 bool cUART::isTxBusy(){
 	return !(USART->ISR & USART_ISR_TXE);
 }

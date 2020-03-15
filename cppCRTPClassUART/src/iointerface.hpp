@@ -23,6 +23,9 @@ class cIOInterface{
 		void resetByteCount(){
 			this->underlying().resetByteCount();
 		}
+		bool get(uint8_t& byte){
+			return this->underlying().get(byte);
+		}
 
 	private:
 		friend T;

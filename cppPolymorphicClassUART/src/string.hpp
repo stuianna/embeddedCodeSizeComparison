@@ -9,6 +9,7 @@ class cString{
 		cString(cIOInterface& targetInterface);
 		~cString() = default;
 		bool sendBuffer(uint8_t* buffer, uint8_t length);
+		uint8_t receiveBuffer(uint8_t* buffer, uint8_t length);
 		bool txFree();
 		uint32_t byteCount();
 		uint8_t lastByteSent();

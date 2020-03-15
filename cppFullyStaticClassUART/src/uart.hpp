@@ -12,6 +12,7 @@ class cUART{
 	static uint32_t getByteCount();
 	static uint8_t getLastByteSent();
 	static void resetByteCount();
+	static bool get(uint8_t& byte);
 
 	private:
 		static void gpioInit();

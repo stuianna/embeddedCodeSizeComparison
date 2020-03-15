@@ -10,6 +10,7 @@ class cUART{
 		~cUART() = default;
 		void init();
 		bool put(uint8_t byte);
+		bool get(uint8_t& byte);
 		bool isTxBusy();
 		uint32_t getByteCount();
 		uint8_t getLastByteSent();

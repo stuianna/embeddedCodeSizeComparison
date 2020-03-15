@@ -10,6 +10,7 @@ class cString{
 		static uint32_t byteCount();
 		static uint8_t lastByteSent();
 		static void resetByteCount();
+		static uint8_t receiveBuffer(uint8_t* buffer, uint8_t length);
 };
 
 

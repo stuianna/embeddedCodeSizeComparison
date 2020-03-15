@@ -13,6 +13,7 @@ class cIOInterface{
 		virtual uint32_t getByteCount()  = 0;
 		virtual uint8_t getLastByteSent() = 0;
 		virtual void resetByteCount() = 0;
+		virtual bool get(uint8_t& byte) = 0;
 };
 
 #endif

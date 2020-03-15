@@ -13,6 +13,16 @@ bool cString::sendBuffer(uint8_t* buffer, uint8_t length){
 	return false;
 }
 
+uint8_t cString::receiveBuffer(uint8_t *buffer,uint8_t length){
+	uint8_t received;
+	for(received = 0; received < length; received++){
+		if(!interface.get(buffer[received])){
+			break;
+		}
+	}
+	return received;
+}
+
 bool cString::txFree(){
 	return !interface.isTxBusy();
 }

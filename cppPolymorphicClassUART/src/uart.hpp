@@ -15,6 +15,7 @@ class cUART : public cIOInterface{
 	virtual uint32_t getByteCount() override;
 	virtual uint8_t getLastByteSent() override;
 	virtual void resetByteCount() override;
+	virtual bool get(uint8_t& byte) override;
 
 	private:
 		void gpioInit();
