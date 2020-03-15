@@ -14,5 +14,9 @@ bool cString::sendBuffer(uint8_t* buffer, uint8_t length){
 }
 
 bool cString::txFree(){
-	return interface.isTxBusy();
+	return !interface.isTxBusy();
+}
+
+uint32_t cString::byteCount(){
+	return interface.getByteCount();
 }

@@ -6,10 +6,11 @@
 class cIOInterface{
 
 	public:
-		cIOInterface() = default;
+		cIOInterface()  {};
 		~cIOInterface() = default;
 		virtual bool put(uint8_t byte) = 0;
 		virtual bool isTxBusy() = 0;
+		virtual uint32_t getByteCount()  = 0;
 };
 
 #endif
