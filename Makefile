@@ -102,6 +102,9 @@ targets: referenceCPP referenceC singleFunctionUartC singleFunctionUartCPP singl
 	"UART Driver as polymorphic CPP class" $(CPPPOLYCLASS)$(BINDIR)/$(PROJECT).elf \
 	"UART Driver as CRTP CPP class" $(CPPCRPTCLASS)$(BINDIR)/$(PROJECT).elf
 
+analyse:
+	@./scripts/compileAll.sh
+
 referenceCPP: CURRDIR=$(REFERENCEDIRCPP)
 referenceCPP: PROJECT=$(REFERENCEBINCPP)
 referenceCPP: 

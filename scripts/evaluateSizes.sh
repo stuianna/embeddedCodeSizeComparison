@@ -37,3 +37,4 @@ do
 done
 
 printf "$TABLE" | column -t -o " | " -s "," -N "$TABLEHEADINGS" -n "$TABLENAME" 
+printf "$TABLE" | column -t -o " | " -s "," -N "$TABLEHEADINGS" -n "$TABLENAME" -J > programSizes.json
