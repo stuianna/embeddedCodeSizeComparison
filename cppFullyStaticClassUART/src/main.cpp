@@ -6,7 +6,6 @@
 
 int main(void){
 	cUART::init();
-	cString::setOutputFunction(cUART::put);
 	while(1){
 		cString::sendBuffer((uint8_t*)TOSEND,sizeof(TOSEND)/sizeof(uint8_t)-1);
 	}
