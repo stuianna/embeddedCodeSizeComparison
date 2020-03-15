@@ -6,8 +6,6 @@
 
 int main(void){
 	cUART::init();
-	cString::setOutputFunction(cUART::put);
-	cString::setTxFreeFunction(cUART::isTxBusy);
 	while(1){
 		if(cString::txFree()){
 			cString::sendBuffer((uint8_t*)TOSEND,sizeof(TOSEND)/sizeof(uint8_t)-1);
