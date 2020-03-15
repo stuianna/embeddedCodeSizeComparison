@@ -13,6 +13,7 @@ class cUART{
 		bool isTxBusy();
 		uint32_t getByteCount();
 		uint8_t getLastByteSent();
+		void resetByteCount();
 
 	private:
 		void gpioInit();

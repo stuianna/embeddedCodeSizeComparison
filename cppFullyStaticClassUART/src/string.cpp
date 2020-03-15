@@ -21,3 +21,7 @@ uint32_t cString::byteCount(){
 uint8_t cString::lastByteSent(){
 	return cUART::getLastByteSent();
 }
+
+void cString::resetByteCount(){
+	cUART::resetByteCount();
+}

@@ -12,6 +12,7 @@ class cIOInterface{
 		virtual bool isTxBusy() = 0;
 		virtual uint32_t getByteCount()  = 0;
 		virtual uint8_t getLastByteSent() = 0;
+		virtual void resetByteCount() = 0;
 };
 
 #endif

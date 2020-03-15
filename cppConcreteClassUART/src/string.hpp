@@ -12,6 +12,7 @@ class cString{
 		bool txFree();
 		uint32_t byteCount();
 		uint8_t lastByteSent();
+		void resetByteCount();
 
 	private:
 		cUART& interface;

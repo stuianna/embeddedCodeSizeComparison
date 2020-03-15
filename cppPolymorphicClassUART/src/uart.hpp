@@ -14,6 +14,7 @@ class cUART : public cIOInterface{
 	virtual bool isTxBusy() override;
 	virtual uint32_t getByteCount() override;
 	virtual uint8_t getLastByteSent() override;
+	virtual void resetByteCount() override;
 
 	private:
 		void gpioInit();

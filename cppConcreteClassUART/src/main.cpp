@@ -13,7 +13,7 @@ int main(void){
 			stream.sendBuffer((uint8_t*)TOSEND,sizeof(TOSEND)/sizeof(uint8_t)-1);
 		}
 		if(stream.lastByteSent() == 0){
-			stream.sendBuffer((uint8_t*)TOSEND,sizeof(TOSEND)/sizeof(uint8_t)-1);
+			stream.resetByteCount();
 		}
 	}
 }

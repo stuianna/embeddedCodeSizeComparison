@@ -60,3 +60,7 @@ uint32_t cUART::getByteCount(){
 uint8_t cUART::getLastByteSent(){
 	return lastByteSent;
 }
+
+void cUART::resetByteCount(){
+	byteCount = 0;
+}

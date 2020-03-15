@@ -25,3 +25,7 @@ uint8_t cString::lastByteSent(){
 	return interface.getLastByteSent();
 }
 
+void cString::resetByteCount(){
+	interface.resetByteCount();
+}
+

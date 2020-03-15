@@ -29,6 +29,9 @@ class cString{
 		uint8_t lastByteSent(){
 			return interface.getLastByteSent();
 		}
+		void resetByteCount(){
+			return interface.resetByteCount();
+		}
 
 	private:
 		cIOInterface<T>& interface;

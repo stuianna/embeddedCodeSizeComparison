@@ -9,6 +9,7 @@ class cString{
 		static bool txFree();
 		static uint32_t byteCount();
 		static uint8_t lastByteSent();
+		static void resetByteCount();
 };
 
 
