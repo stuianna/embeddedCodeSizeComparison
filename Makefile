@@ -88,15 +88,9 @@ BINHEX=$(PROJECT).hex
 .PHONY: targets all release debug clean flash erase reference
 
 targets: CURRDIR=
-targets: referenceCPP referenceC singleFunctionUartC singleFunctionUartCPP singleFileUartC singleFileUartCPP cStyleModules cppStaticClass cppConcreteClass cppPolyClass cppCRTPClass
+targets: referenceCPP cppStaticClass cppConcreteClass cppPolyClass cppCRTPClass
 	@./scripts/evaluateSizes.sh  \
-	"Empty reference C program" $(REFERENCEDIRC)$(BINDIR)/$(PROJECT).elf \
-	"Empty reference CPP program" $(REFERENCEDIRCPP)$(BINDIR)/$(PROJECT).elf \
-	"UART Driver in single C function" $(SINGLEFUNCTIONC)$(BINDIR)/$(PROJECT).elf \
-	"UART Driver in single CPP function" $(SINGLEFUNCTIONCPP)$(BINDIR)/$(PROJECT).elf \
-	"UART Driver in single C File with split functions" $(SINGLEFILEC)$(BINDIR)/$(PROJECT).elf \
-	"UART Driver in single CPP File with split functions" $(SINGLEFILECPP)$(BINDIR)/$(PROJECT).elf \
-	"UART Driver as C style modules" $(CSTYLEMODULES)$(BINDIR)/$(PROJECT).elf \
+	"Empty CPP Program" $(REFERENCEDIRCPP)$(BINDIR)/$(PROJECT).elf \
 	"UART Driver as fully static CPP classes" $(CPPSTATICCLASS)$(BINDIR)/$(PROJECT).elf \
 	"UART Driver as only concrete CPP classes" $(CPPCONCRETECLASS)$(BINDIR)/$(PROJECT).elf \
 	"UART Driver as polymorphic CPP class" $(CPPPOLYCLASS)$(BINDIR)/$(PROJECT).elf \
