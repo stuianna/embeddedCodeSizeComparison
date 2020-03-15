@@ -8,8 +8,9 @@ int main(void){
 	cUART::init();
 	cString::setOutputFunction(cUART::put);
 	cString::setTxFreeFunction(cUART::isTxBusy);
+	cString::setByteCountFunction(cUART::getByteCount);
 	while(1){
-		if(cString::txFree()){
+		if(cString::txFree() && (cString::byteCount() < 1000)){
 			cString::sendBuffer((uint8_t*)TOSEND,sizeof(TOSEND)/sizeof(uint8_t)-1);
 		}
 	}

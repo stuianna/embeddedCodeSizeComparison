@@ -13,6 +13,7 @@
 #define BAUD 115200.
 
 static void GPIO_setUARTFunction(GPIO_TypeDef* port, uint8_t pin);
+uint32_t cUART::byteCount = 0;
 
 void cUART::init(){
 	gpioInit();
@@ -44,9 +45,14 @@ bool cUART::put(uint8_t byte){
 		return true;
 	}
 	USART->TDR = byte;
+	byteCount++;
 	return false;
 }
 
 bool cUART::isTxBusy(){
 	return !(USART->ISR & USART_ISR_TXE);
+}
+
+uint32_t cUART::getByteCount(){
+	return byteCount;
 }
