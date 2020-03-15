@@ -1,17 +1,9 @@
 #include "string.hpp"
-
-bool (*cString::outputFunction)(uint8_t) = 0;
-bool (*cString::txFreeFunction)(void) = 0;
-uint32_t (*cString::byteCountFunction)(void) = 0;
+#include "uart.hpp"
 
 bool cString::sendBuffer(uint8_t* buffer, uint8_t length){
-
-	if(!outputFunction){
-		return true;
-	}
-
 	for(uint32_t i = 0; i < length; i++){
-		if(outputFunction(buffer[i])){
+		if(cUART::put(buffer[i])){
 			return true;
 		}
 	}
@@ -19,27 +11,9 @@ bool cString::sendBuffer(uint8_t* buffer, uint8_t length){
 }
 
 bool cString::txFree(){
-	if(!txFreeFunction){
-		return false;
-	}
-	return txFreeFunction();
+	return cUART::isTxBusy();
 }
 
 uint32_t cString::byteCount(){
-	if(!byteCountFunction){
-		return 0;
-	}
-	return byteCountFunction();
-}
-
-void cString::setOutputFunction(bool (*out)(uint8_t)){
-	outputFunction = out;
-}
-
-void cString::setTxFreeFunction(bool (*free)(void)){
-	txFreeFunction = free;
-}
-
-void cString::setByteCountFunction(uint32_t (*bc)(void)){
-	byteCountFunction = bc;
+	return cUART::getByteCount();
 }
