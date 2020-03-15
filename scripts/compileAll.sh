@@ -18,6 +18,11 @@ make clean
 make
 $(pwd)/scripts/analyseResults.py
 
+git checkout fourFunctions
+make clean
+make
+$(pwd)/scripts/analyseResults.py
+
 $(pwd)/scripts/graphResults.py
 rm programResults.json
 rm programSizes.json
