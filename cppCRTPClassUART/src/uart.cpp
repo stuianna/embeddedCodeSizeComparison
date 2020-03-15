@@ -44,9 +44,14 @@ bool cUART::put(uint8_t byte){
 		return true;
 	}
 	USART->TDR = byte;
+	byteCount++;
 	return false;
 }
 
 bool cUART::isTxBusy(){
 	return !(USART->ISR & USART_ISR_TXE);
+}
+
+uint32_t cUART::getByteCount(){
+	return byteCount;
 }

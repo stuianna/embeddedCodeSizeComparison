@@ -14,6 +14,9 @@ class cIOInterface{
 		bool isTxBusy(){
 			return this->underlying().isTxBusy();
 		}
+		uint32_t getByteCount(){
+			return this->underlying().getByteCount();
+		}
 
 	private:
 		friend T;

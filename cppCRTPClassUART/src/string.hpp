@@ -17,8 +17,13 @@ class cString{
 			}
 			return false;
 		}
+
 		bool txFree(){
 			return interface.isTxBusy();
+		}
+
+		uint32_t byteCount(){
+			return interface.getByteCount();
 		}
 
 	private:
